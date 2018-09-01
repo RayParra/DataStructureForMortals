@@ -1,0 +1,19 @@
+ Unidad 1: Clasificacion de estructuras de datos
+Una estructura de datos es una clase de datos que se puede caracterizar por su organización y operaciones definidas sobre ella. Algunas veces a estas estructuras se les llama tipos de datos.
+en ellas encontramos las siguientes: 
+
+ESTRUCTURAS LÓGICAS DE DATOS:
+En un programa, cada variable pertenece a alguna estructura de datos explícita o implícitamente definida, la cual determina el conjunto de operaciones validas para ella. Las estructuras de datos que se discuten aquí son estructuras de datos lógicas. Cada estructura de datos lógica puede tener varias representaciones físicas diferentes para sus almacenamientos 
+
+ESTRUCTURAS PRIMITIVAS Y SIMPLES:
+Son primitivas aquellas que no están compuestas por otras estructuras de datos por ejemplo, enteros, booleanos y caracteres. Otras estructuras de datos se pueden construir de una o mas primitivas. Las estructuras de datos simples que consideramos se construyen a partir de estructuras primitivas y son: cadenas, arreglos y registros. A estas estructuras de datos las respaldan muchos lenguajes de programación.
+
+ESTRUCTURAS LINEALES Y NO LINEALES:
+Las estructuras de datos simples se pueden combinar de varias maneras para formar estructuras mas complejas. Las dos cases principales de estructuras de datos son las lineales y las no lineales, dependiendo de la complejidad de las relaciones lógicas que representan. Las estructuras de datos lineales incluyen pilas, colas y listas ligadas lineales. Las estructuras de datos no lineales incluyen grafos y árboles. 
+
+
+Datos estáticos: su tamaño y forma es constante durante la ejecución de un programa y por tanto se determinan en tiempo de compilación. El ejemplo típico son los arrays. Tienen el problema de que hay que dimensionar la estructura de antemano, lo que puede conllevar desperdicio o falta de memoria. 
+
+Datos dinámicos: su tamaño y forma es variable (o puede serlo) a lo largo de un programa, por lo que se crean y destruyen en tiempo de ejecución. Esto permite dimensionar la estructura de datos de una forma precisa: se va asignando memoria en tiempo de ejecución según se va necesitando.
+
+
