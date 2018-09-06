@@ -1,0 +1,45 @@
+ Memoria Dinámica
+
+¿Qué es la memoria dinámica?
+
+Supongamos que nuestro programa debe manipular estructuras de datos de longitud desconocida. Un ejemplo simple podría ser el de un programa que lee las líneas de un archivo y las ordena. Por tanto, deberemos leer un número indeterminado de líneas, y tras leer la última, ordenarlas. Una manera de manejar ese ``número indeterminado'', sería declarar una constante MAX_LINEAS, darle un valor vergonzosamente grande, y declarar un array de tamaño MAX_LINEAS. Esto, obviamente, es muy ineficiente (y feo). Nuestro programa no sólo quedaría limitado por ese valor máximo, sino que además gastaría esa enorme cantidad de memoria para procesar hasta el más pequeño de los ficheros.
+
+La solución consiste en utilizar memoria dinámica. La memoria dinámica es un espacio de almacenamiento que se solicita en tiempo de ejecución. De esa manera, a medida que el proceso va necesitando espacio para más líneas, va solicitando más memoria al sistema operativo para guardarlas. El medio para manejar la memoria que otorga el sistema operativo, es el puntero, puesto que no podemos saber en tiempo de compilación dónde nos dará huecos el sistema operativo (en la memoria de nuestro PC).
+
+Memoria Dinámica.
+
+Sobre el tratamiento de memoria, GLib dispone de una serie de instrucciones que sustituyen a las ya conocidas por todos malloc, free, etc. y, siguiendo con el modo de llamar a las funciones en GLib, las funciones que sustituyen a las ya mencionadas son g_malloc y g_free.
+
+Reserva de memoria.
+
+La función g_malloc posibilita la reserva de una zona de memoria, con un número de bytes que le pasemos como parámetro. Además, también existe una función similar llamada g_malloc0 que, no sólo reserva una zona de memoria, sino que, además, llena esa zona de memoria con ceros, lo cual nos puede beneficiar si se necesita un zona de memoria totalmente limpia.
+
+gpointer g_malloc (gulong numero_de_bytes );
+
+gpointer g_malloc0 (gulong numero_de_bytes );
+
+Existe otro conjunto de funciones que nos permiten reservar memoria de una forma parecida a cómo se hace en los lenguajes orientados a objetos.
+
+Liberación de memoria.
+
+Cuando se hace una reserva de memoria con g_malloc y, en un momento dado, el uso de esa memoria no tiene sentido, es el momento de liberar esa memoria. Y el sustituto de free es g_free que, básicamente, funciona igual que la anteriormente mencionada.
+
+void g_free (gpointer memoria_reservada );
+
+Realojamiento de memoria
+
+En determinadas ocasiones, sobre todo cuando se utilizan estructuras de datos dinámicas, es necesario ajustar el tamaño de una zona de memoria (ya sea para hacerla más grande o más pequeña). Para eso, GLib ofrece la función g_realloc, que recibe un puntero a memoria que apunta a una región que es la que será acomodada al nuevo tamaño y devuelve el puntero a la nueva zona de memoria. El anterior puntero es liberado y no se debería utilizar más:
+
+gpointer g_realloc (gpointer memoria_reservada , gulong numero_de_bytes );
+
+Asignación dinámica
+
+El proceso de compactación del punto anterior es una instancia particular del problema de asignación de memoria dinámica, el cual es el cómo satisfacer una necesidad de tamaño n con una lista de huecos libres. Existen muchas soluciones para el problema. El conjunto de huecos es analizado para determinar cuál hueco es el más indicado para asignarse. Las estrategias más comunes para asignar algún hueco de la tabla son:
+
+Primer ajuste: Consiste en asignar el primer hueco con capacidad suficiente. La búsqueda puede iniciar ya sea al inicio o al final del conjunto de huecos o en donde terminó la última búsqueda. La búsqueda termina al encontrar un hueco lo suficientemente grande.
+
+Mejor ajuste: Busca asignar el espacio más pequeño de los espacios con capacidad suficiente. La búsqueda se debe de realizar en toda la tabla, a menos que la tabla esté ordenada por tamaño. Esta estrategia produce el menor desperdicio de memoria posible.
+
+Peor ajuste: Asigna el hueco más grande. Una vez más, se debe de buscar en toda la tabla de huecos a menos que esté organizada por tamaño. Esta estrategia produce los huecos de sobra más grandes, los cuales pudieran ser de más uso si llegan procesos de tamaño mediano que quepan en ellos.
+
+Se ha demostrado mediante simulacros que tanto el primer y el mejor ajuste son mejores que el peor ajuste en cuanto a minimizar tanto el tiempo del almacenamiento. Ni el primer o el mejor ajuste es claramente el mejor en términos de uso de espacio, pero por lo general el primer ajuste es más rápido. 
